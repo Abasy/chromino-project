@@ -24,11 +24,34 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        mainwindowchromino.cpp
+    sac.cpp \
+    plateau.cpp \
+    jeu.cpp \
+    joueur.cpp \
+    case.cpp \
+    chromino.cpp \
+    chrominotricolore.cpp \
+    chrominobicolore.cpp \
+    chrominounicolore.cpp \
+    main.cpp \
+    home.cpp \
+    couleurchromino.cpp
 
 HEADERS += \
-        mainwindowchromino.h
+    sac.h \
+    plateau.h \
+    jeu.h \
+    joueur.h \
+    case.h \
+    chromino.h \
+    chrominotricolore.h \
+    chrominobicolore.h \
+    chrominounicolore.h \
+    home.h \
+    couleurchromino.h
 
 FORMS += \
-        mainwindowchromino.ui
+    home.ui
+
+RESOURCES += \
+    ressources.qrc

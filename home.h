@@ -15,6 +15,7 @@ public:
     explicit Home(QWidget *parent = 0);
     ~Home();
 
+
 private:
     Ui::Home *ui;
 };

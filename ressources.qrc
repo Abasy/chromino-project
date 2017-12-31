@@ -1,2 +1,12 @@
-<!DOCTYPE RCC>
-<RCC version="1.0"/>
+<RCC>
+    <qresource prefix="/Images">
+        <file>chromino_bleu.png</file>
+        <file>chromino_cameleon.png</file>
+        <file>chromino_jaune.png</file>
+        <file>chromino_rouge.png</file>
+        <file>chromino_vert.png</file>
+        <file>chromino_violet.png</file>
+        <file>chrominologo.png</file>
+        <file>chromino_back.png</file>
+    </qresource>
+</RCC>
