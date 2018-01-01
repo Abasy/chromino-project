@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include "case.h"
 #include "plateau.h"
+#include "chromino.h"
 #include "chrominounicolore.h"
 #include "chrominobicolore.h"
 #include "chrominotricolore.h"

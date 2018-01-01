@@ -34,8 +34,7 @@ SOURCES += \
     chrominobicolore.cpp \
     chrominounicolore.cpp \
     main.cpp \
-    home.cpp \
-    couleurchromino.cpp
+    home.cpp
 
 HEADERS += \
     sac.h \
@@ -47,8 +46,7 @@ HEADERS += \
     chrominotricolore.h \
     chrominobicolore.h \
     chrominounicolore.h \
-    home.h \
-    couleurchromino.h
+    home.h
 
 FORMS += \
     home.ui

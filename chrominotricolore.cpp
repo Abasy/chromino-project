@@ -11,38 +11,35 @@ ChrominoTricolore::ChrominoTricolore(Case *case1,
 {
     nombre_chrominos_tricolore++;
     idChrominoTricolore = nombre_chrominos_tricolore;
-    chrominoTricolore.push_back(*case1);
-    chrominoTricolore.push_back(*case2);
-    chrominoTricolore.push_back(*case3);
+    chrominoTricolore.push_back(case1);
+    chrominoTricolore.push_back(case2);
+    chrominoTricolore.push_back(case3);
+    createChromino(chrominoTricolore);
+    setHandlesChildEvents(false);
 }
 
 ChrominoTricolore::~ChrominoTricolore()
 {
     nombre_chrominos_tricolore--;
-
-    for(vector< Case >::iterator it = chrominoTricolore.begin() ;it != chrominoTricolore.end(); ++it)
-    {
-        delete (*it);  //On libère la i-ème case mémoire allouée
-    }
-    chrominoTricolore.clear();
 }
 
 int ChrominoTricolore::getNombre_chrominos_tricolore(){return nombre_chrominos_tricolore;}
 int ChrominoTricolore::getIdChrominoTricolore() const{return idChrominoTricolore;}
 
-std::vector<Case> ChrominoTricolore::getChrominoTricolore() const
+QVector<Case*> ChrominoTricolore::getChrominoTricolore() const
 {
     return chrominoTricolore;
 }
 
-void ChrominoTricolore::setChrominoTricolore(const std::vector<Case> &value)
+void ChrominoTricolore::setChrominoTricolore(const QVector<Case*> &value)
 {
     chrominoTricolore = value;
 }
 
 void ChrominoTricolore::rotateChromino(qreal pos)
 {
-    int angle = static_cast<int>(45*pos);
+    Chromino::rotateChromino(pos);
+    /*int angle = static_cast<int>(45*pos);
     if(_front)
         angle += 45;
 
@@ -53,10 +50,10 @@ void ChrominoTricolore::rotateChromino(qreal pos)
     setTransform(transform);
 
     if(pos == 1.0)
-        _front = !_front;
+        _front = !_front;*/
 }
 
-void ChrominoTricolore::createChromino(const std::vector<Case> &chromino)
+void ChrominoTricolore::createChromino(const QVector<Case*> &chromino)
 {
     addToGroup(chromino[0]);
     addToGroup(chromino[1]);

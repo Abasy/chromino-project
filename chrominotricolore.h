@@ -13,8 +13,8 @@ public:
     int getIdChrominoTricolore() const;
     static int getNombre_chrominos_tricolore();
 
-    std::vector<Case> getChrominoTricolore() const;
-    void setChrominoTricolore(const std::vector<Case> &value);
+    QVector<Case*> getChrominoTricolore() const;
+    void setChrominoTricolore(const QVector<Case*> &value);
 
 private slots:
     void rotateChromino(qreal pos);
@@ -29,10 +29,10 @@ protected:
     //Variable
     int idChrominoTricolore;
     static int nombre_chrominos_tricolore;
-    std::vector<Case> chrominoTricolore;
+    QVector<Case*> chrominoTricolore;
 
     //Fonction
-    void createChromino(std::vector<Case> const& chromino);
+    void createChromino(QVector<Case*> const& chromino);
     //void createBackChromino(const Case& backChromino);
 
     //Event

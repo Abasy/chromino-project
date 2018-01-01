@@ -23,28 +23,25 @@ ChrominoBicolore::ChrominoBicolore(Case *case1,
 ChrominoBicolore::~ChrominoBicolore()
 {
     nombre_chrominos_bicolore--;
-    for(int i(0); i<chrominoBicolore.size(); ++i)
-    {
-        delete chrominoBicolore[i];  //On libère la i-ème case mémoire allouée
-        chrominoBicolore[i] = 0;  //On met le pointeur à 0 pour éviter les soucis
-    }
 }
 
 int ChrominoBicolore::getNombre_chrominos_bicolore(){return nombre_chrominos_bicolore;}
 int ChrominoBicolore::getIdChrominoBicolore() const{return idChrominoBicolore;}
 
-std::vector<Case> ChrominoBicolore::getChrominoBicolore() const
+QVector<Case*> ChrominoBicolore::getChrominoBicolore() const
 {
     return chrominoBicolore;
 }
 
-void ChrominoBicolore::setChrominoBicolore(const std::vector<Case> &value)
+void ChrominoBicolore::setChrominoBicolore(const QVector<Case*> &value)
 {
     chrominoBicolore = value;
 }
 
 void ChrominoBicolore::rotateChromino(qreal pos)
 {
+    Chromino::rotateChromino(pos);
+    /*
     int angle = static_cast<int>(45*pos);
     if(_front)
         angle += 45;
@@ -56,10 +53,10 @@ void ChrominoBicolore::rotateChromino(qreal pos)
     setTransform(transform);
 
     if(pos == 1.0)
-        _front = !_front;
+        _front = !_front;*/
 }
 
-void ChrominoBicolore::createChromino(const std::vector<Case> &chromino)
+void ChrominoBicolore::createChromino(const QVector<Case*> &chromino)
 {
     addToGroup(chromino[0]);
     addToGroup(chromino[1]);

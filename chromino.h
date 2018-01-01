@@ -1,7 +1,7 @@
 #ifndef CHROMINO_H
 #define CHROMINO_H
 #include "case.h"
-#include <vector>
+#include <QVector>
 #include <QGraphicsItemGroup>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsItem>
@@ -15,14 +15,29 @@ public:
     int getIdChromino() const;
     static int getNombre_chrominos();
 
-private slots:
-    virtual void rotateChromino() const;
+public slots:
+    virtual void rotateChromino(qreal pos);
 
 protected:
+    //GUI
+    bool _front;
+    //QGraphicsPixmapItem* _caseVide;
+    //QTimeLine* _timeLine;
+    //QGraphicsProxyWidget* _configChromino;
+
+    //Variable
     int idChromino;
     static int nombre_chrominos;
 
-    virtual void createChromino() const;
+    //Fonction
+    virtual void createChromino(QVector<Case*> const& chromino) const;
+    //void createBackChromino(const Case& backChromino);
+
+    //Event
+    //void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
+    //void moveChromino();
+
+    //virtual void createChromino(int const& nbCouleur) const;
 };
 
 #endif // CHROMINO_H
