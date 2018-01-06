@@ -1,9 +1,9 @@
 #ifndef JEU_H
 #define JEU_H
+#include <QDebug>
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include "case.h"
-#include "plateau.h"
 #include "chromino.h"
 #include "chrominounicolore.h"
 #include "chrominobicolore.h"
@@ -24,7 +24,6 @@ public:
 
     //public attributes
     QGraphicsScene * scene;
-    Plateau * plateau;
     QString whosTurn;
 
 /*

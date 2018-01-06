@@ -34,7 +34,8 @@ SOURCES += \
     chrominobicolore.cpp \
     chrominounicolore.cpp \
     main.cpp \
-    home.cpp
+    home.cpp \
+    game.cpp
 
 HEADERS += \
     sac.h \
@@ -46,10 +47,14 @@ HEADERS += \
     chrominotricolore.h \
     chrominobicolore.h \
     chrominounicolore.h \
-    home.h
+    home.h \
+    game.h
 
 FORMS += \
-    home.ui
+    home.ui \
+    config_joueurs.ui \
+    game.ui \
+    game.ui
 
 RESOURCES += \
     ressources.qrc

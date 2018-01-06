@@ -8,5 +8,6 @@
         <file>chromino_violet.png</file>
         <file>chrominologo.png</file>
         <file>chromino_back.png</file>
+        <file>chromino_sac.jpg</file>
     </qresource>
 </RCC>

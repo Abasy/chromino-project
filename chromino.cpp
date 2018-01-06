@@ -3,11 +3,20 @@
 using namespace std;
 int Chromino::nombre_chrominos(0);
 
-Chromino::Chromino(QGraphicsItem *parent)
-    :QGraphicsItemGroup()
+Chromino::Chromino(Case* case1,
+                   Case* case2,
+                   Case* case3,
+                   QGraphicsItem *parent)
+    :QGraphicsItemGroup(),
+    posX(case1->getPosX()),posY(case1->getPosY()),isUse(false)
 {
     nombre_chrominos++;
-    idChromino = nombre_chrominos;
+    //idChromino = nombre_chrominos;
+
+    qDebug()<<"Création d'un chromino";
+    //createChromino(chromino);
+    //setHandlesChildEvents(false);
+    qDebug()<<"Nombre de chromino : "<<nombre_chrominos;
 }
 
 Chromino::~Chromino()
@@ -15,24 +24,20 @@ Chromino::~Chromino()
     nombre_chrominos--;
 }
 
-int Chromino::getNombre_chrominos()
+int Chromino::getNombre_chrominos(){return nombre_chrominos;}
+
+
+bool Chromino::getIsUse() const
 {
-    return nombre_chrominos;
+    return isUse;
 }
 
-void Chromino::rotateChromino(qreal pos)
+QVector<Case *> Chromino::getChromino() const
 {
-    int angle = static_cast<int>(45*pos);
-    if(_front)
-        angle += 45;
-
-    QTransform transform;
-    transform.translate(100,0);
-    transform.rotate(angle, Qt::YAxis);
-    transform.translate(-100,0);
-    setTransform(transform);
-
-    if(pos == 1.0)
-        _front = !_front;
+    return chromino;
 }
 
+void Chromino::setChromino(const QVector<Case *> &value)
+{
+    chromino = value;
+}

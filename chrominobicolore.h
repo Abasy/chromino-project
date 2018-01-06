@@ -1,12 +1,12 @@
 #ifndef CHROMINOBICOLORE_H
 #define CHROMINOBICOLORE_H
 #include "chromino.h"
-#include <QTimeLine>
-#include <QGraphicsProxyWidget>
 
 class ChrominoBicolore: public Chromino
 {
 public:
+    ChrominoBicolore(QVector<Case *> &cases,
+                     QGraphicsItem *parent=Q_NULLPTR);
     ChrominoBicolore(Case* case1,
                      Case* case2,
                      Case* case3,
@@ -15,31 +15,23 @@ public:
     int getIdChrominoBicolore() const;
     static int getNombre_chrominos_bicolore();
 
-    QVector<Case*> getChrominoBicolore() const;
-    void setChrominoBicolore(const QVector<Case*> &value);
+    //Surcharge d'operateur
+    //bool operator==(Chromino * const& b);
+    bool estEgal(Chromino* const& b) const;
 
-private slots:
-    void rotateChromino(qreal pos);
+    QVector<Case *> getCases() const;
+    void setCases(const QVector<Case *> &value);
+
+public slots:
+    void rotateChromino();
 
 protected:
-    //GUI
-    bool _front;
-    //QGraphicsPixmapItem* _caseVide;
-    //QTimeLine* _timeLine;
-    //QGraphicsProxyWidget* _configChromino;
-
     //Variable
     int idChrominoBicolore;
     static int nombre_chrominos_bicolore;
-    QVector<Case*> chrominoBicolore;
+    QVector<Case *> cases;
 
     //Fonction
-    void createChromino(QVector<Case*> const& chromino);
-    //void createBackChromino(const Case& backChromino);
-
-    //Event
-    //void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
-    //void moveChromino();
+    void createChromino(QVector<Case *>& chromino);
 };
-
 #endif // CHROMINOBICOLORE_H

@@ -1,10 +1,18 @@
 #include "case.h"
 
-Case::Case(QPixmap &pix, QGraphicsItem* parent):pixmap(pix)
+Case::Case(QPixmap pix, int couleur,
+           qreal pX, qreal pY,
+           qreal w, qreal h,
+           QGraphicsItem* parent)
+    :QGraphicsPixmapItem(), pixmap(pix), idCouleur(couleur),
+      posX(pX),posY(pY), width(w), height(h)
 {
+    //qDebug() << "Création de la case" << QString(idCouleur);
+    setPos(posX,posY);
     setPixmap(pixmap);
-}
 
+}
+/*
 QPixmap Case::getPixmap() const
 {
     return pixmap;
@@ -14,7 +22,7 @@ void Case::setPixmap(const QPixmap &value)
 {
     pixmap = value;
 }
-
+*/
 int Case::getIdCouleur() const
 {
     return idCouleur;
@@ -25,24 +33,55 @@ void Case::setIdCouleur(int value)
     idCouleur = value;
 }
 
-/*
-Case::Case(QGraphicsItem *parent){
-    //Desiner une case
-    //On a besoin de 4 points (1,0)(2,0)(1,1)(2,1)
-    QVector<QPointF> casePoints;
-    casePoints << QPointF(1,0) << QPointF(2,0)
-              << QPointF(2,1) << QPointF(1,1);
-
-    //scale les points
-    int SCALE_BY = 15;
-    for(size_t i=0, n = casePoints.size();i<n;++i){
-        casePoints[i] *= SCALE_BY;
-    }
-
-    //Créer un carré avec les points
-    QPolygonF carre(casePoints);
-
-    //Dessiner le carré
-    setPolygon(carre);
+qreal Case::getWidth() const
+{
+    return width;
 }
-*/
+
+void Case::setWidth(const qreal &value)
+{
+    width = value;
+}
+
+qreal Case::getHeight() const
+{
+    return height;
+}
+
+void Case::setHeight(const qreal &value)
+{
+    height = value;
+}
+
+qreal Case::getPosX() const
+{
+    return posX;
+}
+
+void Case::setPosX(const qreal &value)
+{
+    posX = value;
+}
+
+qreal Case::getPosY() const
+{
+    return posY;
+}
+
+void Case::setPosY(const qreal &value)
+{
+    posY = value;
+}
+
+void Case::setPosCase()
+{
+    QPointF offset = this->sceneBoundingRect().center();
+    setPosX(offset.x());
+    setPosY(offset.y());
+}
+
+QRectF Case::boundingRect() const
+{
+    return QRectF(posX,posY,width,height);
+}
+

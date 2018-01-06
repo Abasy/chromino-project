@@ -5,6 +5,9 @@
 class ChrominoTricolore: public Chromino
 {
 public:
+    ChrominoTricolore(QVector<Case *> &cases,
+                     QGraphicsItem *parent=Q_NULLPTR);
+
     ChrominoTricolore(Case *case1,
                       Case *case2,
                       Case *case3,
@@ -13,31 +16,24 @@ public:
     int getIdChrominoTricolore() const;
     static int getNombre_chrominos_tricolore();
 
-    QVector<Case*> getChrominoTricolore() const;
-    void setChrominoTricolore(const QVector<Case*> &value);
+    //Surcharge d'operateur
+    //bool operator==(Chromino* const& b);
+    bool estEgal(Chromino* const& b) const;
 
-private slots:
-    void rotateChromino(qreal pos);
+    QVector<Case *> getCases() const;
+    void setCases(const QVector<Case *> &value);
+
+public slots:
+    void rotateChromino();
 
 protected:
-    //GUI
-    bool _front;
-    //QGraphicsPixmapItem* _caseVide;
-    //QTimeLine* _timeLine;
-    //QGraphicsProxyWidget* _configChromino;
-
     //Variable
     int idChrominoTricolore;
     static int nombre_chrominos_tricolore;
-    QVector<Case*> chrominoTricolore;
+    QVector<Case *> cases;
 
     //Fonction
-    void createChromino(QVector<Case*> const& chromino);
-    //void createBackChromino(const Case& backChromino);
-
-    //Event
-    //void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
-    //void moveChromino();
+    void createChromino(QVector<Case *>& chromino);
 };
 
 #endif // CHROMINOTRICOLORE_H

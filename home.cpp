@@ -6,10 +6,6 @@ Home::Home(QWidget *parent) :
     ui(new Ui::Home)
 {
     ui->setupUi(this);
-    QPixmap pix(":/Images/chrominologo.png");
-    int w = ui->label_logo_chromino->width();
-    int h = ui->label_logo_chromino->height();
-    ui->label_logo_chromino->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
 }
 
 Home::~Home()
@@ -17,3 +13,17 @@ Home::~Home()
     delete ui;
 }
 
+void Home::on_btn_quitter_clicked()
+{
+    this->close();
+}
+
+
+
+void Home::on_btn_jouer_clicked()
+{
+    hide();
+    game = new Game();
+    game->show();
+    game->start();
+}
