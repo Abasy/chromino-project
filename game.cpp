@@ -24,6 +24,7 @@ Game::~Game()
 
 void Game::start()
 {
+    /*
     QPixmap pix(":/Images/chromino_rouge.png");
     QPixmap pix2(":/Images/chromino_bleu.png");
     QPixmap pix3(":/Images/chromino_vert.png");
@@ -47,47 +48,27 @@ void Game::start()
     scene->addItem(bicolore2);
     scene->update();
     bicolore->rotateChromino();
-    bicolore2->rotateChromino();
 
     if(bicolore->estEgal(bicolore2)){
         qDebug()<<"C'est les memes";
     }else{
         qDebug()<<"Mince j'ai du rater quelque chose";
     }
-
+*/
     //genererChrominoUnicolore();
+    //afficherChrominos(chrominoUnicolores);
+
     //genererChrominoBicolore110();
+    //afficherChrominos(chrominoBicolores110);
 
-    /*QVector<Case *> monVecteur(0);
-    monVecteur = genererCases(2,true,false,false);
-    ChrominoBicolore *chromino_bicolore = new ChrominoBicolore(monVecteur);
-    chrominoBicolores110.push_back(chromino_bicolore);
+    //genererChrominoBicolore101();
+    //afficherChrominos(chrominoBicolores101);
 
-    bool trouver = compareVectorCases(monVecteur , monVecteur);
-    qDebug()<<"Trouver : "<<trouver;
+    //genererChrominoCameleon();
+    //afficherChrominos(chrominoCameleons);
 
-    monVecteur.clear();
-
-    monVecteur = genererCases(2,true,false,false);
-    ChrominoBicolore *chromino_bicolore2 = new ChrominoBicolore(monVecteur);
-    chrominoBicolores110.push_back(chromino_bicolore2);
-
-    bool trouver2 = compareVectorCases(monVecteur , monVecteur);
-    qDebug()<<"Trouver : "<<trouver2;
-
-    monVecteur.clear();
-
-    for(int i(0);i<maxChrominoBicolore110 - 1;i++){
-        qDebug()<<"-----------Chrominos bicolore : "<<i;
-        chrominoBicolores110[i]->afficherChromino();
-    }
-
-    qDebug()<<"Nombre d'élement : "<<cases.size();
-    qDebug()<<"Couleurs du chromino ->"
-            <<cases[0]->getIdCouleur()<<"-"
-            <<cases[1]->getIdCouleur()<<"-"
-            <<cases[2]->getIdCouleur();*/
-
+    genererChrominoTricolore();
+    afficherChrominos(chrominoTricolores);
 }
 
 QVector<Case *> Game::genererCases(int nb_couleurs, bool type110, bool type101, bool typeCameleon)
@@ -267,6 +248,18 @@ bool Game::compareVectorCases(QVector<Case *> &a, QVector<Case *> &b)
     return (condition_1 || condition_2);
 }
 
+void Game::afficherChrominos(QVector<Chromino *> &chromino)
+{
+    qDebug()<<"Nombre d'élement : "<<chromino.size();
+    for(int i(0);i<chromino.size();i++){
+        qDebug()<<"-----------Chrominos bicolore : "<<i;
+        chromino[i]->afficherChromino();
+    }
+}
+
+/**
+ * @brief Game::genererChromino
+ */
 void Game::genererChromino()
 {
     /*
@@ -283,6 +276,11 @@ void Game::genererChromino()
     chrominos.insert(chrominos.end(),chrominoTricolors);*/
 }
 
+/**
+ * @brief Game::genererChrominoUnicolore
+ * Génére 5 chrominos unicolore.
+ * Exemple : bleu-bleu-bleu, rouge-rouge-rouge ...etc
+ */
 void Game::genererChrominoUnicolore()
 {
     QVector<Case *> monVecteur(0);
@@ -344,68 +342,221 @@ void Game::genererChrominoUnicolore()
 /**
  * @brief Game::genererChrominoBicolore110
  * Génére 20 chromino bicolore du type110
- * soit  vert-vert-rouge ou rouge-vert-vert
+ * Exemple : vert-vert-rouge ou bleu-bleu-rouge
  */
 void Game::genererChrominoBicolore110()
-{/*
+{
     QVector<Case *> monVecteur(0);
-    ChrominoBicolore *chromino_bicolore;
+    Chromino *chromino_bicolore_110;
+
+    int j(0);
     int cpt(0);
 
-    for(int i(0); i<maxChrominoBicolore110; i++){//on boucle 20 fois
-        bool trouver = false;//false : Chromino identique pas trouvé
-        int j(0);
+    //On génére 3 cases de type110. Exemple : bleu bleu vert et on enregistre
+    //le premier chrominoBicolore de type 110
+    /*if(i==0){*/
+    qDebug()<<"\n 0ième chromino--------------------";
+    monVecteur = genererCases(2,true,false,false);
+    chromino_bicolore_110 = new ChrominoBicolore(monVecteur);
+    chrominoBicolores110.push_back(chromino_bicolore_110);
+    //}*/
 
-        //On génére 3 cases de type110. Exemple : bleu bleu vert et on enregistre
-        //le premier chrominoBicolore de type 110
-        if(i==0){
-            monVecteur = genererCases(2,true,false,false);
-            chromino_bicolore = new ChrominoBicolore(monVecteur);
-            chrominoBicolores110.push_back(chromino_bicolore);
-        }
+    bool identique = false;
 
-        qDebug()<<"Il y a "<<chrominoBicolores110.size()<<" chrominoUnicolors";
+    for(int i(1); i<maxChrominoBicolore110; i++){//on boucle 20 fois
+        identique = false;//false : Chromino identique pas trouvé
+        monVecteur = genererCases(2,true,false,false);
 
-        while(j<chrominoBicolores110.size() && !trouver && i>=1){
-            trouver = compareVectorCases(chrominoBicolores110[j]->getChromino(), monVecteur);
+        qDebug()<<"Il y a "<<chrominoBicolores110.size()<<" chrominoBicolores et Trouver = "<<!identique;
+
+        while(j<chrominoBicolores110.size() && !identique){
+            QVector<Case *> mesCases = chrominoBicolores110[j]->getChromino();
+            identique = compareVectorCases(mesCases, monVecteur);
 
             qDebug()<<"\n"<<i<<" ième chromino--------------------";
-            qDebug()<<j<<"ième trouver : "<<trouver;
+            qDebug()<<"\t"<<j<<"ième different : "<<identique;
 
-            if(!trouver){//Si on a rien trouver
-                cpt++;//Le nombre de fois où on a pas trouvé
-                j++;
-            }else{//Si on a trouver un chromino identique dans la list
+            if(identique){//true : Si on a trouver un chromino identique dans la list
                 //On recommence avec un nouveau vecteur
                 j=0;
-                trouver = false;
+                identique = false;
                 cpt = 0;
                 monVecteur = genererCases(2,true,false,false);
+            }else{//false : Si le vecteur n'est pas identique à un chromino de la list
+                cpt++;//Le nombre de fois où on a pas trouvé de chromino identique
+                j++; //Chromino suivant
             }
         }
 
+        qDebug()<<"CPT = "<<cpt;
         if(cpt==chrominoBicolores110.size()){
             //Le chromino est unique donc on le rajoute dans la liste
-            chromino_bicolore = new ChrominoBicolore(monVecteur);
-            chrominoBicolores110.push_back(chromino_bicolore);
+            chromino_bicolore_110 = new ChrominoBicolore(monVecteur);
+            chrominoBicolores110.push_back(chromino_bicolore_110);
         }
         monVecteur.clear();
-    }*/
+    }
 }
 
 void Game::genererChrominoBicolore101()
 {
+    QVector<Case *> monVecteur(0);
+    Chromino *chromino_bicolore_101;
 
+    int j(0);
+    int cpt(0);
+
+    //On génére 3 cases de type110. Exemple : bleu bleu vert et on enregistre
+    //le premier chrominoBicolore de type 110
+
+    qDebug()<<"\n 0 ième chromino--------------------";
+    monVecteur = genererCases(2,false,true,false);
+    chromino_bicolore_101 = new ChrominoBicolore(monVecteur);
+    chrominoBicolores101.push_back(chromino_bicolore_101);
+
+    bool identique = false;
+
+    for(int i(1); i<maxChrominoBicolore101; i++){//on boucle 20 fois
+        identique = false;//false : Chromino identique pas trouvé
+        monVecteur = genererCases(2,false,true,false);
+
+        qDebug()<<"Il y a "<<chrominoBicolores101.size()<<" chrominoBicolores et Trouver = "<<!identique;
+
+        while(j<chrominoBicolores101.size() && !identique){
+            QVector<Case *> mesCases = chrominoBicolores101[j]->getChromino();
+            identique = compareVectorCases(mesCases, monVecteur);
+
+            qDebug()<<"\n"<<i<<" ième chromino--------------------";
+            qDebug()<<"\t"<<j<<"ième different : "<<identique;
+
+            if(identique){//true : Si on a trouver un chromino identique dans la list
+                //On recommence avec un nouveau vecteur
+                j=0;
+                identique = false;
+                cpt = 0;
+                monVecteur = genererCases(2,false,true,false);
+            }else{//false : Si le vecteur n'est pas identique à un chromino de la list
+                cpt++;//Le nombre de fois où on a pas trouvé de chromino identique
+                j++; //Chromino suivant
+            }
+        }
+
+        qDebug()<<"CPT = "<<cpt;
+        if(cpt==chrominoBicolores101.size()){
+            //Le chromino est unique donc on le rajoute dans la liste
+            chromino_bicolore_101 = new ChrominoBicolore(monVecteur);
+            chrominoBicolores101.push_back(chromino_bicolore_101);
+        }
+        monVecteur.clear();
+    }
 }
 
 void Game::genererChrominoCameleon()
 {
+    QVector<Case *> monVecteur(0);
+    Chromino *chromino_bicolore_cameleon;
 
+    int j(0);
+    int cpt(0);
+
+    //On génére 3 cases de type110. Exemple : bleu bleu vert et on enregistre
+    //le premier chrominoBicolore de type 110
+    /*if(i==0){*/
+    qDebug()<<"\n 0ième chromino--------------------";
+    monVecteur = genererCases(2,false,false,true);
+    chromino_bicolore_cameleon = new ChrominoBicolore(monVecteur);
+    chrominoCameleons.push_back(chromino_bicolore_cameleon);
+    //}*/
+
+    bool identique = false;
+
+    for(int i(1); i<maxChrominoCameleon; i++){//on boucle 20 fois
+        identique = false;//false : Chromino identique pas trouvé
+        monVecteur = genererCases(2,false,false,true);
+
+        qDebug()<<"Il y a "<<chrominoCameleons.size()<<" chrominoBicolores et Trouver = "<<!identique;
+
+        while(j<chrominoCameleons.size() && !identique){
+            QVector<Case *> mesCases = chrominoCameleons[j]->getChromino();
+            identique = compareVectorCases(mesCases, monVecteur);
+
+            qDebug()<<"\n"<<i<<" ième chromino--------------------";
+            qDebug()<<"\t"<<j<<"ième different : "<<identique;
+
+            if(identique){//true : Si on a trouver un chromino identique dans la list
+                //On recommence avec un nouveau vecteur
+                j=0;
+                identique = false;
+                cpt = 0;
+                monVecteur = genererCases(2,false,false,true);
+            }else{//false : Si le vecteur n'est pas identique à un chromino de la list
+                cpt++;//Le nombre de fois où on a pas trouvé de chromino identique
+                j++; //Chromino suivant
+            }
+        }
+
+        qDebug()<<"CPT = "<<cpt;
+        if(cpt==chrominoCameleons.size()){
+            //Le chromino est unique donc on le rajoute dans la liste
+            chromino_bicolore_cameleon = new ChrominoBicolore(monVecteur);
+            chrominoCameleons.push_back(chromino_bicolore_cameleon);
+        }
+        monVecteur.clear();
+    }
 }
 
 void Game::genererChrominoTricolore()
 {
+    QVector<Case *> monVecteur(0);
+    Chromino *chromino_tricolore;
 
+    int j(0);
+    int cpt(0);
+
+    //On génére 3 cases de type110. Exemple : bleu bleu vert et on enregistre
+    //le premier chrominoBicolore de type 110
+    /*if(i==0){*/
+    qDebug()<<"\n 0ième chromino--------------------";
+    monVecteur = genererCases(3,false,false,false);
+    chromino_tricolore = new ChrominoTricolore(monVecteur);
+    chrominoTricolores.push_back(chromino_tricolore);
+    //}*/
+
+    bool identique = false;
+
+    for(int i(1); i<maxChrominoTricolore; i++){//on boucle 20 fois
+        identique = false;//false : Chromino identique pas trouvé
+        monVecteur = genererCases(3,false,false,false);
+
+        qDebug()<<"Il y a "<<chrominoTricolores.size()<<" chrominoBicolores et Trouver = "<<!identique;
+
+        while(j<chrominoTricolores.size() && !identique){
+            QVector<Case *> mesCases = chrominoTricolores[j]->getChromino();
+            identique = compareVectorCases(mesCases, monVecteur);
+
+            qDebug()<<"\n"<<i<<" ième chromino--------------------";
+            qDebug()<<"\t"<<j<<"ième different : "<<identique;
+
+            if(identique){//true : Si on a trouver un chromino identique dans la list
+                //On recommence avec un nouveau vecteur
+                j=0;
+                identique = false;
+                cpt = 0;
+                monVecteur = genererCases(3,false,false,false);
+            }else{//false : Si le vecteur n'est pas identique à un chromino de la list
+                cpt++;//Le nombre de fois où on a pas trouvé de chromino identique
+                j++; //Chromino suivant
+            }
+        }
+
+        qDebug()<<"CPT = "<<cpt;
+        if(cpt==chrominoTricolores.size()){
+            //Le chromino est unique donc on le rajoute dans la liste
+            chromino_tricolore = new ChrominoTricolore(monVecteur);
+            chrominoTricolores.push_back(chromino_tricolore);
+        }
+        monVecteur.clear();
+    }
 }
 
 void Game::distribuerChrominoJoueur(const QVector<Chromino *> &ch)
@@ -447,3 +598,5 @@ void Game::on_pushButton_clicked()
 {
 
 }
+
+

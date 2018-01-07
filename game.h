@@ -32,11 +32,11 @@ public:
 private:
     //Variables
     QGraphicsScene * scene;
-    QVector<ChrominoUnicolore *> chrominoUnicolores;
-    QVector<ChrominoBicolore *> chrominoBicolores110;
-    QVector<ChrominoBicolore *> chrominoBicolores101;
-    QVector<ChrominoBicolore *> chrominoCameleons;
-    QVector<ChrominoTricolore *> chrominoTricolores;
+    QVector<Chromino *> chrominoUnicolores;
+    QVector<Chromino *> chrominoBicolores110;
+    QVector<Chromino *> chrominoBicolores101;
+    QVector<Chromino *> chrominoCameleons;
+    QVector<Chromino *> chrominoTricolores;
     QVector<Chromino *> chrominos;
     QVector<Joueur*> joueurs;
     Chromino* currentChromino;
@@ -67,15 +67,8 @@ private slots:
 
 private:
     Ui::Game *ui;
-/*
-    //Variable static global
-    static const int maxChromino;
-    static const int maxChrominoUnicolore;
-    static const int maxChrominoBicolore101;
-    static const int maxChrominoBicolore110;
-    static const int maxChrominoCameleon;
-    static const int maxChrominoTricolore;
-*/
+
+    void afficherChrominos(QVector<Chromino *> &chromino);
 
 
 
