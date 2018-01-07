@@ -1,12 +1,12 @@
 #include "game.h"
 #include "ui_game.h"
 
-int maxChromino(80);
-int maxChrominoUnicolore(5);
-int maxChrominoBicolore101(20);
-int maxChrominoBicolore110(20);
-int maxChrominoCameleon(5);
-int maxChrominoTricolore(30);
+const int maxChromino(80);
+const int maxChrominoUnicolore(5);
+const int maxChrominoBicolore101(20);
+const int maxChrominoBicolore110(20);
+const int maxChrominoCameleon(5);
+const int maxChrominoTricolore(30);
 
 Game::Game(QWidget *parent) :
     QWidget(parent),
@@ -15,7 +15,6 @@ Game::Game(QWidget *parent) :
     ui->setupUi(this);
     scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
-
 }
 
 Game::~Game()
@@ -29,7 +28,6 @@ void Game::start()
     QPixmap pix2(":/Images/chromino_bleu.png");
     QPixmap pix3(":/Images/chromino_vert.png");
 
-    /*
     //Bicolore
     Case *caseb1 = new Case(pix2,2,0,30);
     Case *caseb2 = new Case(pix2,2,15,30);
@@ -44,23 +42,51 @@ void Game::start()
     ChrominoBicolore* bicolore2 = new ChrominoBicolore(caseb6, caseb4, caseb5);
 
     scene->addItem(bicolore);
+    scene->update();
+
     scene->addItem(bicolore2);
     scene->update();
     bicolore->rotateChromino();
-    scene->update();
+    bicolore2->rotateChromino();
 
     if(bicolore->estEgal(bicolore2)){
         qDebug()<<"C'est les memes";
     }else{
         qDebug()<<"Mince j'ai du rater quelque chose";
     }
-    */
-    QVector<Case *> cases = genererCases(1,false, false, true);
+
+    //genererChrominoUnicolore();
+    //genererChrominoBicolore110();
+
+    /*QVector<Case *> monVecteur(0);
+    monVecteur = genererCases(2,true,false,false);
+    ChrominoBicolore *chromino_bicolore = new ChrominoBicolore(monVecteur);
+    chrominoBicolores110.push_back(chromino_bicolore);
+
+    bool trouver = compareVectorCases(monVecteur , monVecteur);
+    qDebug()<<"Trouver : "<<trouver;
+
+    monVecteur.clear();
+
+    monVecteur = genererCases(2,true,false,false);
+    ChrominoBicolore *chromino_bicolore2 = new ChrominoBicolore(monVecteur);
+    chrominoBicolores110.push_back(chromino_bicolore2);
+
+    bool trouver2 = compareVectorCases(monVecteur , monVecteur);
+    qDebug()<<"Trouver : "<<trouver2;
+
+    monVecteur.clear();
+
+    for(int i(0);i<maxChrominoBicolore110 - 1;i++){
+        qDebug()<<"-----------Chrominos bicolore : "<<i;
+        chrominoBicolores110[i]->afficherChromino();
+    }
+
     qDebug()<<"Nombre d'élement : "<<cases.size();
     qDebug()<<"Couleurs du chromino ->"
             <<cases[0]->getIdCouleur()<<"-"
             <<cases[1]->getIdCouleur()<<"-"
-            <<cases[2]->getIdCouleur();
+            <<cases[2]->getIdCouleur();*/
 
 }
 
@@ -75,15 +101,7 @@ QVector<Case *> Game::genererCases(int nb_couleurs, bool type110, bool type101, 
     srand(time(NULL));
 
     int couleur_tmp = Color(rand()%5);
-    qDebug()<<"Couleur random init"<<couleur;
-
-    //Ressources chromino
-    QPixmap pixBleu(":/Images/chromino_bleu.png");
-    QPixmap pixVert(":/Images/chromino_vert.png");
-    QPixmap pixRouge(":/Images/chromino_rouge.png");
-    QPixmap pixViolet(":/Images/chromino_violet.png");
-    QPixmap pixJaune(":/Images/chromino_jaune.png");
-    QPixmap pixCameleon(":/Images/chromino_cameleon.png");
+    //qDebug()<<"Couleur random init"<<couleur;
 
     if(nb_couleurs==1 || nb_couleurs==3){
         typeCameleon = false;
@@ -93,20 +111,15 @@ QVector<Case *> Game::genererCases(int nb_couleurs, bool type110, bool type101, 
         if(type101 && type110 && typeCameleon){
             qDebug()<<"Erreur! Choisissez un type : type101, type110 ou typeChromino";
         }
-        if(typeCameleon){
-            type101 = false;
-            type110 = false;
-        }
-        if(type101){
-            typeCameleon = false;
-            type110 = false;
-        }
-        if(type110){
-            type101 = false;
-            typeCameleon = false;
-        }
     }
 
+    //Ressources chromino
+    QPixmap pixBleu(":/Images/chromino_bleu.png");
+    QPixmap pixVert(":/Images/chromino_vert.png");
+    QPixmap pixRouge(":/Images/chromino_rouge.png");
+    QPixmap pixViolet(":/Images/chromino_violet.png");
+    QPixmap pixJaune(":/Images/chromino_jaune.png");
+    QPixmap pixCameleon(":/Images/chromino_cameleon.png");
 
     if(nb_couleurs>0 && nb_couleurs<4){
         for(int i(0);i<3;i++){//On veut générer 3 cases
@@ -125,7 +138,7 @@ QVector<Case *> Game::genererCases(int nb_couleurs, bool type110, bool type101, 
                 case 1: //Chromino à une seul couleur
                     //On initialise la couleur et on ne le change plus
                     couleur = couleur_tmp;
-                    qDebug()<<"Couleur random1Couleur "<<couleur;
+                    //qDebug()<<"Couleur random1Couleur "<<couleur;
                     break;
                 case 2://Les deux première cases sont identiques
                     couleur = couleur_tmp;
@@ -137,7 +150,7 @@ QVector<Case *> Game::genererCases(int nb_couleurs, bool type110, bool type101, 
                             couleur = Color(rand()%5);
                         }
                         //couleur = couleur_tmp;
-                        qDebug()<<"Couleur random type110 "<<couleur;
+                        //qDebug()<<"Couleur random type110 "<<couleur;
                     }
 
                     //Chromino 101
@@ -147,7 +160,7 @@ QVector<Case *> Game::genererCases(int nb_couleurs, bool type110, bool type101, 
                             couleur = Color(rand()%5);
                         }
                         //couleur = couleur_tmp;
-                        qDebug()<<"Couleur random type101 "<<couleur;
+                        //qDebug()<<"Couleur random type101 "<<couleur;
                     }
                     if(type101 && i==2){
                         //couleur = couleur_tmp;
@@ -161,7 +174,7 @@ QVector<Case *> Game::genererCases(int nb_couleurs, bool type110, bool type101, 
                     if(typeCameleon && (i==1)){
                         couleur_tmp = couleur;//On stock la première couleur
                         couleur = 5;
-                        qDebug()<<"Couleur random Cameleon "<<couleur;
+                        //qDebug()<<"Couleur random Cameleon "<<couleur;
                     }
                     if(typeCameleon && i==2){
 
@@ -169,7 +182,7 @@ QVector<Case *> Game::genererCases(int nb_couleurs, bool type110, bool type101, 
                             couleur = Color(rand()%5);
                         }
                         //couleur = couleur_tmp;
-                        qDebug()<<"Couleur random Cameleon "<<couleur;
+                        //qDebug()<<"Couleur random Cameleon "<<couleur;
                     }
                     break;
                 case 3:
@@ -183,7 +196,7 @@ QVector<Case *> Game::genererCases(int nb_couleurs, bool type110, bool type101, 
                             couleur = Color(rand()%5);
                         }
                         //couleur = couleur_tmp;
-                        qDebug()<<"Couleur random3Couleur "<<couleur;
+                        //qDebug()<<"Couleur random3Couleur "<<couleur;
                     }
                     break;
                 default: qDebug()<<"Erreur nb_couleurs!";break;
@@ -192,32 +205,32 @@ QVector<Case *> Game::genererCases(int nb_couleurs, bool type110, bool type101, 
             //On attribut la couleur à la case
             switch(couleur){
                 case 0:
-                    qDebug()<<"Bleu(0)"<<couleur;
+                    //qDebug()<<"Bleu(0)"<<couleur;
                     maCase = new Case(pixBleu,couleur,x,y);
                     mesCases.push_back(maCase);
                     break;//BLEU
                 case 1 :
-                    qDebug()<<"Vert(1):"<<couleur;
+                    //qDebug()<<"Vert(1):"<<couleur;
                     maCase = new Case(pixVert,couleur,x,y);
                     mesCases.push_back(maCase);
                     break;//VERT
                 case 2 :
-                    qDebug()<<"Rouge(2):"<<couleur;
+                    //qDebug()<<"Rouge(2):"<<couleur;
                     maCase = new Case(pixRouge,couleur,x,y);
                     mesCases.push_back(maCase);
                     break;//ROUGE
                 case 3 :
-                    qDebug()<<"Violet(3):"<<couleur;
+                    //qDebug()<<"Violet(3):"<<couleur;
                     maCase = new Case(pixViolet,couleur,x,y);
                     mesCases.push_back(maCase);
                     break;//VIOLET
                 case 4 :
-                    qDebug()<<"Jaune(4):"<<couleur;
+                    //qDebug()<<"Jaune(4):"<<couleur;
                     maCase = new Case(pixJaune,couleur,x,y);
                     mesCases.push_back(maCase);
                     break;//JAUNE
                 case 5 :
-                    qDebug()<<"Cameleon(5):"<<couleur;
+                    //qDebug()<<"Cameleon(5):"<<couleur;
                     maCase = new Case(pixCameleon,couleur,x,y);
                     mesCases.push_back(maCase);
                     break;//Cameleon
@@ -240,7 +253,7 @@ bool Game::compareVectorCases(QVector<Case *> &a, QVector<Case *> &b)
        && a[1]->getIdCouleur()==b[1]->getIdCouleur()
             && a[2]->getIdCouleur()==b[2]->getIdCouleur()){
         condition_1=true;
-        qDebug()<< "1 chromino à l'endroit : les chrominos sont identiques";
+        //qDebug()<< "1 chromino à l'endroit : les chrominos sont identiques";
     }
 
     //On vérifie le cas où l'un des chrominos est inversé
@@ -248,20 +261,20 @@ bool Game::compareVectorCases(QVector<Case *> &a, QVector<Case *> &b)
        && a[1]->getIdCouleur()==b[1]->getIdCouleur()
        && a[2]->getIdCouleur()==b[0]->getIdCouleur()){
         condition_2 = true;
-        qDebug()<< "1 chromino à l'envers : les chrominos sont identiques";
+        //qDebug()<< "1 chromino à l'envers : les chrominos sont identiques";
     }
 
     return (condition_1 || condition_2);
 }
 
-QVector<Chromino *> Game::genererChromino()
+void Game::genererChromino()
 {
     /*
-    chrominoUnicolors = genererChrominoUnicolore();
-    chrominoBicolors101 = genererChrominoBicolore101();
-    chrominoBicolors110 = genererChrominoBicolore110();
-    chrominoCameleons = genererChrominoCameleon();
-    chrominoTricolors = genererChrominoTricolore();
+    genererChrominoUnicolore();
+    genererChrominoBicolore101();
+    genererChrominoBicolore110();
+    genererChrominoCameleon();
+    genererChrominoTricolore();
 
     chrominos.insert(chrominos.end(),chrominoUnicolors);
     chrominos.insert(chrominos.end(),chrominoBicolors101);
@@ -270,56 +283,127 @@ QVector<Chromino *> Game::genererChromino()
     chrominos.insert(chrominos.end(),chrominoTricolors);*/
 }
 
-QVector<ChrominoUnicolore *> Game::genererChrominoUnicolore()
+void Game::genererChrominoUnicolore()
 {
-    QVector<Case *> monVecteur;
+    QVector<Case *> monVecteur(0);
+    Case *maCase;
+    ChrominoUnicolore *chromino_unicolore;
+    qreal x, y;
+
+    //qDebug()<<"ChrominoUnicolore max : "<<maxChrominoUnicolore;
+
+    //Ressources chromino
+    QPixmap pixBleu(":/Images/chromino_bleu.png");
+    QPixmap pixVert(":/Images/chromino_vert.png");
+    QPixmap pixRouge(":/Images/chromino_rouge.png");
+    QPixmap pixViolet(":/Images/chromino_violet.png");
+    QPixmap pixJaune(":/Images/chromino_jaune.png");
+
+    for(int i(0);i<maxChrominoUnicolore;i++){
+        for(int j(0);j<3;j++){
+            //On positionne les cases côte à côte
+            switch (j) {
+                case 0: x= 0; y=0; break;
+                case 1: x=15; y=0; break;
+                case 2: x=30; y=0; break;
+            default: qDebug()<<"Mince! Erreur position!";
+                break;
+            }
+
+            switch(i){
+                case 0:
+                    maCase = new Case(pixBleu,i,x,y);
+                    monVecteur.push_back(maCase);
+                    break;//BLEU
+                case 1 :
+                    maCase = new Case(pixVert,i,x,y);
+                    monVecteur.push_back(maCase);
+                    break;//VERT
+                case 2 :
+                    maCase = new Case(pixRouge,i,x,y);
+                    monVecteur.push_back(maCase);
+                    break;//ROUGE
+                case 3 :
+                    maCase = new Case(pixViolet,i,x,y);
+                    monVecteur.push_back(maCase);
+                    break;//VIOLET
+                case 4 :
+                    maCase = new Case(pixJaune,i,x,y);
+                    monVecteur.push_back(maCase);
+                    break;//JAUNE
+                default : qDebug()<<"Erreur! Couleur inexistant!";break;
+            }
+        }
+        chromino_unicolore = new ChrominoUnicolore(monVecteur);
+        chrominoUnicolores.push_back(chromino_unicolore);
+
+        monVecteur.clear();
+    }
+}
+
+/**
+ * @brief Game::genererChrominoBicolore110
+ * Génére 20 chromino bicolore du type110
+ * soit  vert-vert-rouge ou rouge-vert-vert
+ */
+void Game::genererChrominoBicolore110()
+{/*
+    QVector<Case *> monVecteur(0);
+    ChrominoBicolore *chromino_bicolore;
     int cpt(0);
 
-    qDebug()<<"ChrominoUnicolore max : "<<maxChrominoUnicolore;
-
-    for(int i(0); i<maxChrominoUnicolore;i++){
-        bool trouver = false;//Pas de nouveau chromino unique
-        //On génére 3 cases d'une couleurs
-        monVecteur = genererCases(1,false,false,false);
+    for(int i(0); i<maxChrominoBicolore110; i++){//on boucle 20 fois
+        bool trouver = false;//false : Chromino identique pas trouvé
         int j(0);
-        qDebug()<<"Il y a "<<chrominoUnicolors.size()<<" chrominoUnicolors";
-        while(j<chrominoUnicolors.size() && !trouver){
-            trouver = compareVectorCases(chrominoUnicolors[j]->getCases(), monVecteur);
+
+        //On génére 3 cases de type110. Exemple : bleu bleu vert et on enregistre
+        //le premier chrominoBicolore de type 110
+        if(i==0){
+            monVecteur = genererCases(2,true,false,false);
+            chromino_bicolore = new ChrominoBicolore(monVecteur);
+            chrominoBicolores110.push_back(chromino_bicolore);
+        }
+
+        qDebug()<<"Il y a "<<chrominoBicolores110.size()<<" chrominoUnicolors";
+
+        while(j<chrominoBicolores110.size() && !trouver && i>=1){
+            trouver = compareVectorCases(chrominoBicolores110[j]->getChromino(), monVecteur);
+
+            qDebug()<<"\n"<<i<<" ième chromino--------------------";
+            qDebug()<<j<<"ième trouver : "<<trouver;
+
             if(!trouver){//Si on a rien trouver
                 cpt++;//Le nombre de fois où on a pas trouvé
+                j++;
             }else{//Si on a trouver un chromino identique dans la list
                 //On recommence avec un nouveau vecteur
                 j=0;
                 trouver = false;
-                monVecteur = genererCases(1,false,false,false);
+                cpt = 0;
+                monVecteur = genererCases(2,true,false,false);
             }
-            j++;
         }
 
-        if(cpt==chrominoUnicolors.size()){
+        if(cpt==chrominoBicolores110.size()){
             //Le chromino est unique donc on le rajoute dans la liste
-            ChrominoUnicolore * chrominoUnicolor = new ChrominoUnicolore(monVecteur);
-            chrominoUnicolors.push_back(chrominoUnicolor);
+            chromino_bicolore = new ChrominoBicolore(monVecteur);
+            chrominoBicolores110.push_back(chromino_bicolore);
         }
-    }
+        monVecteur.clear();
+    }*/
 }
 
-QVector<ChrominoBicolore *> Game::genererChrominoBicolore110()
+void Game::genererChrominoBicolore101()
 {
 
 }
 
-QVector<ChrominoBicolore *> Game::genererChrominoBicolore101()
+void Game::genererChrominoCameleon()
 {
 
 }
 
-QVector<ChrominoBicolore *> Game::genererChrominoCameleon()
-{
-
-}
-
-QVector<ChrominoTricolore *> Game::genererChrominoTricolore()
+void Game::genererChrominoTricolore()
 {
 
 }
@@ -362,34 +446,4 @@ void Game::on_btn_down_clicked()
 void Game::on_pushButton_clicked()
 {
 
-}
-
-int Game::getMaxChrominoTricolore()
-{
-    return maxChrominoTricolore;
-}
-
-int Game::getMaxChrominoCameleon()
-{
-    return maxChrominoCameleon;
-}
-
-int Game::getMaxChrominoBicolore110()
-{
-    return maxChrominoBicolore110;
-}
-
-int Game::getMaxChrominoBicolore101()
-{
-    return maxChrominoBicolore101;
-}
-
-int Game::getMaxChrominoUnicolore()
-{
-    return maxChrominoUnicolore;
-}
-
-int Game::getMaxChromino()
-{
-    return maxChromino;
 }

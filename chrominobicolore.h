@@ -19,8 +19,8 @@ public:
     //bool operator==(Chromino * const& b);
     bool estEgal(Chromino* const& b) const;
 
-    QVector<Case *> getCases() const;
-    void setCases(const QVector<Case *> &value);
+    //Fonctions
+    void afficherChromino() const;
 
 public slots:
     void rotateChromino();
@@ -29,7 +29,6 @@ protected:
     //Variable
     int idChrominoBicolore;
     static int nombre_chrominos_bicolore;
-    QVector<Case *> cases;
 
     //Fonction
     void createChromino(QVector<Case *>& chromino);

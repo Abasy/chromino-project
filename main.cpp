@@ -15,11 +15,14 @@ int main(int argc, char *argv[])
     jeu = new Jeu();
     jeu->show();
     jeu->start();*/
-
+/*
     home = new Home();
     home->show();
-    /*
+    */
+
     game = new Game();
-    game->show();*/
+    game->show();
+    game->start();
+
     return app.exec();
 }

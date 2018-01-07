@@ -4,7 +4,7 @@ using namespace std;
 int ChrominoUnicolore::nombre_chrominos_unicolore(0);
 
 ChrominoUnicolore::ChrominoUnicolore(QVector<Case *> &cases, QGraphicsItem *parent)
-    :Chromino(cases[0],cases[1],cases[2],parent), cases(cases)
+    :Chromino(cases[0],cases[1],cases[2],parent)
 {
     nombre_chrominos_unicolore++;
     idChrominoUnicolore = nombre_chrominos_unicolore;
@@ -55,6 +55,15 @@ void ChrominoUnicolore::createChromino(QVector<Case *> &chromino)
     }
 }
 
+void ChrominoUnicolore::afficherChromino() const
+{
+    QString str="";
+    for(int i(0);i<chromino.size();i++){
+        str += QString::number(chromino[i]->getIdCouleur()) + "-";
+    }
+    qDebug()<<str;
+}
+
 void ChrominoUnicolore::rotateChromino()
 {
     switch(_angle){
@@ -79,22 +88,6 @@ void ChrominoUnicolore::rotateChromino()
 
 }
 
-QVector<Case *> ChrominoUnicolore::getCases() const
-{
-    return cases;
-}
-
-void ChrominoUnicolore::setCases(const QVector<Case *> &value)
-{
-    cases = value;
-}
-
-/*
-bool ChrominoUnicolore::operator==(Chromino * const &chr)
-{
-    return this->estEgal(chr);
-}
-*/
 bool ChrominoUnicolore::estEgal(Chromino * const &b) const
 {
     bool condition_1(false);

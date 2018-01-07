@@ -20,9 +20,8 @@ public:
     //bool operator==(Chromino* const& b);
     bool estEgal(Chromino* const& b) const;
 
-    //Getters et setters
-    QVector<Case *> getCases() const;
-    void setCases(const QVector<Case *> &value);
+    //Fonctions
+    void afficherChromino() const;
 
 public slots:
     void rotateChromino();
@@ -31,10 +30,12 @@ protected:
     //Variable
     int idChrominoUnicolore;
     static int nombre_chrominos_unicolore;
-    QVector<Case *> cases;
+    //QVector<Case *> cases;
 
     //Fonction
     void createChromino(QVector<Case *>& chromino);
+
+
 };
 
 #endif // CHROMINOUNICOLORE_H

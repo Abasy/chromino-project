@@ -35,6 +35,9 @@ public:
     bool operator==(Chromino * const& b);
     bool estEgal(Chromino* const& b) const;
 
+    //Fonctions
+    virtual void afficherChromino() const;
+
 protected:
     //Variable
     //int idChromino;

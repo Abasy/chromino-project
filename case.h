@@ -36,7 +36,7 @@ public slots:
 
 private:
     QPixmap pixmap;
-    int idCouleur=0;
+    int idCouleur;
     qreal posX;
     qreal posY;
     qreal width;

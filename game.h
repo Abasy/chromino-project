@@ -29,39 +29,26 @@ public:
     void start();
     enum Color{BLEU=0,VERT,ROUGE,VIOLET,JAUNE};
 
-    //Getters nombre de chromino de chaque type
-    static int getMaxChromino();
-
-    static int getMaxChrominoUnicolore();
-
-    static int getMaxChrominoBicolore101();
-
-    static int getMaxChrominoBicolore110();
-
-    static int getMaxChrominoCameleon();
-
-    static int getMaxChrominoTricolore();
-
 private:
     //Variables
     QGraphicsScene * scene;
-    QVector<ChrominoUnicolore *> chrominoUnicolors;
-    QVector<ChrominoBicolore *> chrominoBicolors110;
-    QVector<ChrominoBicolore *> chrominoBicolors101;
+    QVector<ChrominoUnicolore *> chrominoUnicolores;
+    QVector<ChrominoBicolore *> chrominoBicolores110;
+    QVector<ChrominoBicolore *> chrominoBicolores101;
     QVector<ChrominoBicolore *> chrominoCameleons;
-    QVector<ChrominoTricolore *> chrominoTricolors;
+    QVector<ChrominoTricolore *> chrominoTricolores;
     QVector<Chromino *> chrominos;
     QVector<Joueur*> joueurs;
     Chromino* currentChromino;
 
     //Fonctions
     QVector<Case *> genererCases(int nbCouleurs, bool type110, bool type101, bool typeCameleon);
-    QVector<Chromino *> genererChromino();//Rempli un QVector de chromino
-    QVector<ChrominoUnicolore *> genererChrominoUnicolore();
-    QVector<ChrominoBicolore *> genererChrominoBicolore110();
-    QVector<ChrominoBicolore *> genererChrominoBicolore101();
-    QVector<ChrominoBicolore *> genererChrominoCameleon();
-    QVector<ChrominoTricolore *> genererChrominoTricolore();
+    void genererChromino();//Rempli un QVector de chromino
+    void genererChrominoUnicolore();
+    void genererChrominoBicolore110();
+    void genererChrominoBicolore101();
+    void genererChrominoCameleon();
+    void genererChrominoTricolore();
     void distribuerChrominoJoueur(QVector<Chromino *> const& ch);
     void remplirSac(QVector<Chromino *>& pioche);
     void initPlateau();
@@ -80,14 +67,15 @@ private slots:
 
 private:
     Ui::Game *ui;
-
+/*
     //Variable static global
-    static int maxChromino;
-    static int maxChrominoUnicolore;
-    static int maxChrominoBicolore101;
-    static int maxChrominoBicolore110;
-    static int maxChrominoCameleon;
-    static int maxChrominoTricolore;
+    static const int maxChromino;
+    static const int maxChrominoUnicolore;
+    static const int maxChrominoBicolore101;
+    static const int maxChrominoBicolore110;
+    static const int maxChrominoCameleon;
+    static const int maxChrominoTricolore;
+*/
 
 
 

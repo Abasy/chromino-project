@@ -41,3 +41,8 @@ void Chromino::setChromino(const QVector<Case *> &value)
 {
     chromino = value;
 }
+
+void Chromino::afficherChromino() const
+{
+
+}

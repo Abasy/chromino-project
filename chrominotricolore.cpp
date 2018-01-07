@@ -4,7 +4,7 @@ using namespace std;
 int ChrominoTricolore::nombre_chrominos_tricolore(0);
 
 ChrominoTricolore::ChrominoTricolore(QVector<Case *> &cases, QGraphicsItem *parent)
-    :Chromino(cases[0],cases[1],cases[2],parent), cases(cases)
+    :Chromino(cases[0],cases[1],cases[2],parent)
 {
     nombre_chrominos_tricolore++;
     idChrominoTricolore = nombre_chrominos_tricolore;
@@ -80,14 +80,13 @@ void ChrominoTricolore::rotateChromino()
 
 }
 
-QVector<Case *> ChrominoTricolore::getCases() const
+void ChrominoTricolore::afficherChromino() const
 {
-    return cases;
-}
-
-void ChrominoTricolore::setCases(const QVector<Case *> &value)
-{
-    cases = value;
+    QString str="";
+    for(int i(0);i<chromino.size();i++){
+        str += QString::number(chromino[i]->getIdCouleur()) + "-";
+    }
+    qDebug()<<str;
 }
 /*
 bool ChrominoTricolore::operator==(Chromino * const &chr)

@@ -5,7 +5,7 @@ using namespace std;
 int ChrominoBicolore::nombre_chrominos_bicolore(0);
 
 ChrominoBicolore::ChrominoBicolore(QVector<Case *> &cases, QGraphicsItem *parent)
-    :Chromino(cases[0],cases[1],cases[2],parent), cases(cases)
+    :Chromino(cases[0],cases[1],cases[2],parent)
 {
     nombre_chrominos_bicolore++;
     idChrominoBicolore = nombre_chrominos_bicolore;
@@ -82,14 +82,13 @@ void ChrominoBicolore::rotateChromino()
 
 }
 
-QVector<Case *> ChrominoBicolore::getCases() const
+void ChrominoBicolore::afficherChromino() const
 {
-    return cases;
-}
-
-void ChrominoBicolore::setCases(const QVector<Case *> &value)
-{
-    cases = value;
+    QString str="";
+    for(int i(0);i<chromino.size();i++){
+        str += QString::number(chromino[i]->getIdCouleur()) + "-";
+    }
+    qDebug()<<str;
 }
 
 /*
